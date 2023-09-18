@@ -225,6 +225,43 @@ class Tiro_Especial(pygame.sprite.Sprite):
         # Se o tiro passar do inicio da tela, morre.
         if self.rect.x < 0 or self.rect.x > largura:
             self.kill()
+class InimigosTerrestres(pygame.sprite.Sprite):
+    def __init__(self,groups,assets,principal,vidas,shoot_ticks,n_inimigo):
+        pygame.sprite.Sprite.__init__(self)
+        self.hit = False
+        self.atual = 0
+        if n_inimigo==2:
+            self.sprite = assets[WALK_INIMIGO2]
+        elif n_inimigo==3:
+            self.sprite = assets[WALK_INIMIGO3]
+        elif n_inimigo==4:
+            self.sprite = assets[WALK_INIMIGO4]
+        elif n_inimigo==5:
+            self.sprite = assets[WALK_INIMIGO5]
+        self.image = self.sprite[self.atual]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = random.choice(posicoes_para_inimigosx)
+        self.rect.bottom = 600
+        self.speedx = 0
+        self.groups = groups
+        self.assets = assets
+        self.lifes = vidas
+        self.principal = principal
+        # Só será possível atirar uma vez a cada 500 milissegundos
+        self.last_shot = pygame.time.get_ticks()
+        self.shoot_ticks = shoot_ticks
+        self.text_surface = self.assets[SCORE_FONT].render(chr(9829) * self.lifes, True, (255,0,0))
+        self.text_rect = self.text_surface.get_rect()
+        self.text_rect.bottomleft = (self.rect.x-5,self.rect.top+10)
+        self.direita = True
+        self.contador= 0
+        self.ataque = False
+
+       
+
+       
+
 
 #classe para o primeiro inimigo
 class Inimigo1(pygame.sprite.Sprite):
@@ -356,32 +393,10 @@ class Tiro_inimigo(pygame.sprite.Sprite):
 
 
 #define classe do inimigo 2
-class Inimigo2(pygame.sprite.Sprite):
-    def __init__(self, groups, assets,principal):
+class Inimigo2(InimigosTerrestres):
+    def __init__(self,groups,assets,principal,vidas,shoot_ticks,n_inimigo):
         # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
-        self.atual = 0
-        self.sprite = assets[WALK_INIMIGO2]
-        self.image = self.sprite[self.atual]
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = random.choice(posicoes_para_inimigosx)
-        self.rect.bottom = 600
-        self.speedx = 0
-        self.groups = groups
-        self.assets = assets
-        self.lifes = 1
-        self.principal = principal
-        # Só será possível atirar uma vez a cada 500 milissegundos
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 600
-        self.text_surface = self.assets[SCORE_FONT].render(chr(9829) * self.lifes, True, (255,0,0))
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.bottomleft = (self.rect.x-5,self.rect.top+10)
-        self.ataque = False
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 1000
-        self.direita = True
+        super().__init__(groups,assets,principal,vidas,shoot_ticks,n_inimigo)
     #update da posição do inimigo
     def update(self):
         x = True
@@ -437,33 +452,10 @@ class Inimigo2(pygame.sprite.Sprite):
                 self.ataque = True
             self.atual= self.atual + 0.3
 #classe para o inimigo 3
-class Inimigo3(pygame.sprite.Sprite):
-    def __init__(self, groups, assets,principal):
+class Inimigo3(InimigosTerrestres):
+    def __init__(self,groups,assets,principal,vidas,shoot_ticks,n_inimigo):
         # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
-
-        self.atual = 0
-        self.sprite = assets[WALK_INIMIGO3]
-        self.image = self.sprite[self.atual]
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = random.choice(posicoes_para_inimigosx)
-        self.rect.bottom = 600
-        self.speedx = 0
-        self.groups = groups
-        self.assets = assets
-        self.lifes = 2
-        self.principal = principal
-        # Só será possível atirar uma vez a cada 500 milissegundos
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 2000
-        self.text_surface = self.assets[SCORE_FONT].render(chr(9829) * self.lifes, True, (255,0,0))
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.bottomleft = (self.rect.x-5,self.rect.top+10)
-        self.direita = True
-        self.atual = 0
-        self.ataque = False
-        self.contador = 0
+        super().__init__(groups,assets,principal,vidas,shoot_ticks,n_inimigo)
     #faz o update da posição do inimigo 3
     def update(self):
         #ataque do inimigo 3
@@ -521,33 +513,10 @@ class Inimigo3(pygame.sprite.Sprite):
             self.rect.left = 0
 
 #classe para o inimigo 4
-class Inimigo4(pygame.sprite.Sprite):
-    def __init__(self, groups, assets,principal):
+class Inimigo4(InimigosTerrestres):
+    def __init__(self,groups,assets,principal,vidas,shoot_ticks,n_inimigo):
         # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
-
-        self.atual = 0
-        self.sprite = assets[WALK_INIMIGO4]
-        self.image = self.sprite[self.atual]
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = random.choice(posicoes_para_inimigosx)
-        self.rect.bottom = 600
-        self.speedx = 0
-        self.groups = groups
-        self.assets = assets
-        self.lifes = 2
-        self.principal = principal
-        # Só será possível atirar uma vez a cada 500 milissegundos
-        self.last_shot = pygame.time.get_ticks()
-        self.text_surface = self.assets[SCORE_FONT].render(chr(9829) * self.lifes, True, (255,0,0))
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.bottomleft = (self.rect.x-5,self.rect.top+10)
-        self.ataque = False
-        self.direita = True
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 1000
-        self.contador = 0
+        super().__init__(groups,assets,principal,vidas,shoot_ticks,n_inimigo)
     #faz o update do inimigo 4
     def update(self):
         #ataque do inimigo 4
@@ -600,32 +569,10 @@ class Inimigo4(pygame.sprite.Sprite):
                 self.ataque = True
             self.atual= self.atual + 0.3
 #classe do inimigo 5
-class Inimigo5(pygame.sprite.Sprite):
-    def __init__(self, groups, assets,principal):
+class Inimigo5(InimigosTerrestres):
+    def __init__(self,groups,assets,principal,vidas,shoot_ticks,n_inimigo):
         # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
-        self.atual = 0
-        self.sprite = assets[WALK_INIMIGO5]
-        self.image = self.sprite[self.atual]
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = random.choice(posicoes_para_inimigosx)
-        self.rect.bottom = 600
-        self.speedx = 0
-        self.groups = groups
-        self.assets = assets
-        self.lifes = 3
-        self.principal = principal
-        # Só será possível atirar uma vez a cada 500 milissegundos
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 2000
-        self.text_surface = self.assets[SCORE_FONT].render(chr(9829) * self.lifes, True, (255,0,0))
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.bottomleft = (self.rect.x-5,self.rect.top+10)
-        self.direita = True
-        self.ataque = False
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 1000
+        super().__init__(groups,assets,principal,vidas,shoot_ticks,n_inimigo)
     #faz o update do inimigo 5
     def update(self):
         # Atualização da posição da nave
