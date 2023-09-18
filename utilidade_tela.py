@@ -17,8 +17,7 @@ def tela_generica(screen, background_img, sound_key, event_key_actions, addition
     assets = load_assets()
 
     # Toca o som
-    if sound_key:
-        assets[sound_key].play(-1)
+   
 
     running = True
     while running:
@@ -28,12 +27,12 @@ def tela_generica(screen, background_img, sound_key, event_key_actions, addition
         # Processa os eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.mixer.Sound.stop(assets[sound_key])
+                #pygame.mixer.Sound.stop(assets[sound_key])
                 return QUIT
 
             if event.type == pygame.KEYDOWN:
                 if event.key in event_key_actions:
-                    pygame.mixer.Sound.stop(assets[sound_key])
+                    #pygame.mixer.Sound.stop(assets[sound_key])
                     return event_key_actions[event.key]
 
         # Desenha o fundo
