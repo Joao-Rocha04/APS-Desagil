@@ -139,19 +139,19 @@ def game_screen(window):
                 all_inimigos.add(inimigo1)
                 tem_inimigo1 = True
             elif i ==2:
-                inimigo = Inimigo2(groups,assets,player)
+                inimigo = Inimigo2(groups,assets,player,2,1000,2)
                 all_sprites.add(inimigo)
                 all_inimigos.add(inimigo)
             elif i == 3:
-                inimigo = Inimigo3(groups,assets,player)
+                inimigo = Inimigo3(groups,assets,player,3,1000,3)
                 all_sprites.add(inimigo)
                 all_inimigos.add(inimigo)
             elif i ==4:
-                inimigo = Inimigo4(groups,assets,player)
+                inimigo = Inimigo4(groups,assets,player,2,1000,4)
                 all_sprites.add(inimigo)
                 all_inimigos.add(inimigo)
             elif i ==5:
-                inimigo = Inimigo5(groups,assets,player)
+                inimigo = Inimigo5(groups,assets,player,2,1000,5)
                 all_sprites.add(inimigo)
                 all_inimigos.add(inimigo)
         hits1 = pygame.sprite.groupcollide(all_inimigos, all_tiros_especial, False, False, pygame.sprite.collide_mask)

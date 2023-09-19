@@ -1,5 +1,5 @@
 # ===== Inicialização =====
-# ----- Importa e inicia pacotes
+# ----- Importa e inicia pacotes 
 import pygame
 from config import INIT, GAME, QUIT, CONFIG, OVER
 from telainicial import init_screen
